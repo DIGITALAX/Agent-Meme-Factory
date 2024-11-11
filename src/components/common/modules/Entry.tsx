@@ -4,6 +4,7 @@ import Bar from "@/components/common/modules/Bar";
 import Cambio from "@/components/common/modules/Cambio";
 import { LuPlus } from "react-icons/lu";
 import { Dictionary } from "../types/common.types";
+import { useRouter } from "next/navigation";
 
 export default function Entry({
   dict,
@@ -24,6 +25,7 @@ export default function Entry({
     fabrica,
     setFabrica,
   } = useBar();
+  const router = useRouter()
   return (
     <div
       className="relative w-full h-screen bg-negro flex items-start justify-center flex-row overflow-scroll-none"
@@ -42,6 +44,7 @@ export default function Entry({
         fijado={fijado}
         filtro={filtro}
         setFiltro={setFiltro}
+        router={router}
       />
       <div className="relative w-full h-full flex items-start justify-center pt-5">
         <Cambio

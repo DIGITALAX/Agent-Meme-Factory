@@ -1,3 +1,4 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SetStateAction } from "react";
 
 export enum Pantalla {
@@ -52,6 +53,7 @@ export type BarProps = {
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
   filtro: string;
   setFiltro: (e: SetStateAction<string>) => void;
+  router: AppRouterInstance;
 };
 
 export type Dictionary = {

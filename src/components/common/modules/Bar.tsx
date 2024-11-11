@@ -19,10 +19,14 @@ const Bar: FunctionComponent<BarProps> = ({
   fijado,
   filtro,
   setFiltro,
+  router,
 }): JSX.Element => {
   return (
     <div className="absolute top-0 z-10 left-0 bg-gris w-10 h-full flex justify-between items-center flex-col px-2 py-4">
-      <div className="relative w-fit h-fit flex items-center justify-center text-2xl">
+      <div
+        className="relative w-fit h-fit flex items-center justify-center text-2xl cursor-pointer"
+        onClick={() => router.push("/")}
+      >
         🤑
       </div>
       <div className="relative w-fit h-fit flex items-center justify-center flex-col gap-4">
