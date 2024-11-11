@@ -7,7 +7,7 @@
     "Actividad": "Actividad",
     "Perfil": "Perfil",
     "Fabrica": "Fábrica",
-    "foryou": "Para Ti",
+    "ParaTi": "Para Ti",
     "searching": "Buscar...",
     "Memes": "Memes",
     "Ropa": "Ropa Callejera",
@@ -17,7 +17,9 @@
     "aleatorio": "Billetera Quemadora",
     "billetera": "Su Billetera",
     "copiado": "¡Copiado!",
-    "clave": "Copie Su Clave Privada"
+    "clave": "Copie Su Clave Privada",
+    "reiniciar": "Nueva Billetera Aleatoria",
+    "social": "Cuentas Sociales"
   },
   "404": {
     "nada": "Error 404: La página ha sido secuestrada por NPCs rebeldes. Estamos negociando su liberación."

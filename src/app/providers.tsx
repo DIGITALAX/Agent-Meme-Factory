@@ -6,7 +6,8 @@ import { WagmiProvider, http } from "wagmi";
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { polygon } from "wagmi/chains";
 import { SetStateAction, createContext, useState } from "react";
-import { Cuenta } from "@/components/Common/types/common.types";
+import { Cuenta, Pantalla } from "@/components/Common/types/common.types";
+import { AuthKitProvider } from "@farcaster/auth-kit";
 
 const config = getDefaultConfig({
   appName: "Agent Meme Factory",
@@ -28,27 +29,40 @@ export const ModalContext = createContext<
       setMostrarConexion: (e: SetStateAction<boolean>) => void;
       setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
       cuenta: Cuenta | undefined;
+      pantalla: Pantalla;
+      setPantalla: (e: SetStateAction<Pantalla>) => void;
     }
   | undefined
 >(undefined);
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  const [pantalla, setPantalla] = useState<Pantalla>(Pantalla.Hogar);
   const [mostrarConexion, setMostrarConexion] = useState<boolean>(false);
   const [cuenta, setCuenta] = useState<Cuenta | undefined>();
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
-          <ModalContext.Provider
-            value={{
-              mostrarConexion,
-              setMostrarConexion,
-              setCuenta,
-              cuenta,
+          <AuthKitProvider
+            config={{
+              rpcUrl: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+              domain: "agentmeme.xyz",
+              siweUri: "https://agentmeme.xyz",
             }}
           >
-            {children}
-          </ModalContext.Provider>
+            <ModalContext.Provider
+              value={{
+                mostrarConexion,
+                setMostrarConexion,
+                setCuenta,
+                cuenta,
+                setPantalla,
+                pantalla
+              }}
+            >
+              {children}
+            </ModalContext.Provider>
+          </AuthKitProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

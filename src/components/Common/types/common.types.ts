@@ -2,7 +2,6 @@ import { ethers } from "ethers";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SetStateAction } from "react";
 import { Profile } from "../../../../generated";
-
 export enum Pantalla {
   Hogar,
   Marcadores,
@@ -10,6 +9,7 @@ export enum Pantalla {
   Actividad,
   Perfil,
   Fabrica,
+  ParaTi,
 }
 
 export enum Fabrica {
@@ -21,12 +21,24 @@ export enum Fabrica {
 
 export type FeedProps = {
   titulo: string;
+  setFijado: (e: SetStateAction<Pantalla[]>) => void;
+  depin?: boolean;
 };
 
 export type Cuenta = {
   quemadora?: ethers.HDNodeWallet | undefined;
   quemadoraAbierta?: boolean;
-  farcaster?: undefined;
+  farcaster?:
+    | {
+        fid?: number;
+        pfpUrl?: string;
+        username?: string;
+        displayName?: string;
+        bio?: string;
+        custody?: `0x${string}`;
+        verifications?: string[];
+      }
+    | undefined;
   farcasterAbierto?: boolean;
   lens?: Profile | undefined;
   lensAbierto?: boolean;
@@ -36,14 +48,21 @@ export type Cuenta = {
 export type PerfilProps = {
   dict: Dictionary;
   cuenta: Cuenta | undefined;
+  setFijado: (e: SetStateAction<Pantalla[]>) => void;
+  setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
+  depin?: boolean;
 };
 
 export type BuscarProps = {
   dict: Dictionary;
+  setFijado: (e: SetStateAction<Pantalla[]>) => void;
+  depin?: boolean;
 };
 
 export type ActividadProps = {
   dict: Dictionary;
+  setFijado: (e: SetStateAction<Pantalla[]>) => void;
+  depin?: boolean;
 };
 
 export type CambioProps = {
@@ -52,6 +71,7 @@ export type CambioProps = {
   fijado: Pantalla[];
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
   dict: Dictionary;
+  setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
   fabrica: Fabrica;
   setFabrica: (e: SetStateAction<Fabrica>) => void;
   cuenta: Cuenta | undefined;
@@ -76,14 +96,16 @@ export type Dictionary = {
   Home: {
     pin: string;
     aleatorio: string;
+    reiniciar: string;
     clave: string;
+    social: string;
     billetera: string;
     conexion: string;
     Hogar: string;
     copiado: string;
     Marcadores: string;
     Buscar: string;
-    foryou: string;
+    ParaTi: string;
     Actividad: string;
     Perfil: string;
     Fabrica: string;
@@ -96,4 +118,14 @@ export type Dictionary = {
 
 export type FabricaCambioProps = {
   fabrica: Fabrica;
+};
+
+export type FijadoProps = {
+  elemento: Pantalla;
+  dict: Dictionary;
+  setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
+  fabrica: Fabrica;
+  setFabrica: (e: SetStateAction<Fabrica>) => void;
+  cuenta: Cuenta | undefined;
+  setFijado: (e: SetStateAction<Pantalla[]>) => void;
 };

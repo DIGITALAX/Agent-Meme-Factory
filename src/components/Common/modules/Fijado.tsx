@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { CambioProps, Fabrica, Pantalla } from "../types/common.types";
+import { FijadoProps, Fabrica, Pantalla } from "../types/common.types";
 import { RiEmojiStickerFill } from "react-icons/ri";
 import { GiSewingMachine } from "react-icons/gi";
 import Feed from "./Feed";
@@ -9,26 +9,32 @@ import FabricaCambio from "./FabricaCambio";
 import Actividad from "./Actividad";
 import Buscar from "./Buscar";
 import Perfil from "./Perfil";
-import Fijado from "./Fijado";
+import { RiUnpinFill } from "react-icons/ri";
 
-const Cambio: FunctionComponent<CambioProps> = ({
-  pantalla,
-  setPantalla,
+const Fijado: FunctionComponent<FijadoProps> = ({
+  elemento,
   dict,
   fabrica,
-  setFabrica,
   cuenta,
-  fijado,
-  setFijado,
   setCuenta,
+  setFabrica,
+  setFijado,
 }): JSX.Element => {
-  switch (pantalla) {
+  switch (elemento) {
     case Pantalla.Fabrica:
       return (
         <div className="relative w-100 flex flex-col gap-3 items-center justify-start h-full">
           <div className="relative text-sm text-white w-fit h-10 text-center">
             {dict.Home.Fabrica +
               ` ( ${dict.Home[fabrica as unknown as keyof typeof dict.Home]} )`}
+          </div>
+          <div
+            className="absolute cursor-pointer right-0 justify-center items-center"
+            onClick={() =>
+              setFijado((prev) => prev.filter((e) => e !== Pantalla.Fabrica))
+            }
+          >
+            <RiUnpinFill size={15} className={`hover:fill-white fill-nubes`} />
           </div>
           <div className="relative bg-gris w-full flex flex-col gap-8 items-center justify-start p-3 rounded-lg h-full">
             <div className="relative w-full h-fit flex flex-row gap-2 justify-between items-center rounded-full p-2 bg-ligero/30">
@@ -87,53 +93,29 @@ const Cambio: FunctionComponent<CambioProps> = ({
       );
 
     case Pantalla.Actividad:
-      return <Actividad dict={dict} setFijado={setFijado} />;
+      return <Actividad setFijado={setFijado} dict={dict} depin />;
 
     case Pantalla.Buscar:
-      return <Buscar dict={dict} setFijado={setFijado} />;
+      return <Buscar setFijado={setFijado} dict={dict} depin />;
 
     case Pantalla.Perfil:
       return (
         <Perfil
-          dict={dict}
           setFijado={setFijado}
+          dict={dict}
           cuenta={cuenta}
           setCuenta={setCuenta}
+          depin
         />
       );
 
     case Pantalla.Marcadores:
-      return (
-        <Feed titulo={dict.Home.Marcadores} setFijado={setFijado} />
-      );
+      return <Feed setFijado={setFijado} titulo={dict.Home.Marcadores} depin />;
 
-    case Pantalla.Hogar:
+    case Pantalla.ParaTi:
     default:
-      return (
-        <div
-          className={`relative w-full h-full overflow-x-scroll flex ${
-            fijado?.length > 1 ? "justify-start pr-3 pl-12" : "justify-center"
-          }`}
-        >
-          <div className="relative w-fit h-full items-start justify-center flex flex-row gap-4">
-            {fijado?.map((elemento: Pantalla, indice: number) => {
-              return (
-                <Fijado
-                  dict={dict}
-                  elemento={elemento}
-                  key={indice}
-                  setCuenta={setCuenta!}
-                  fabrica={fabrica}
-                  cuenta={cuenta}
-                  setFabrica={setFabrica}
-                  setFijado={setFijado}
-                />
-              );
-            })}
-          </div>
-        </div>
-      );
+      return <Feed setFijado={setFijado} titulo={dict.Home.ParaTi} />;
   }
 };
 
-export default Cambio;
+export default Fijado;

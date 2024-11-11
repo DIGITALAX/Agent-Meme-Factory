@@ -23,6 +23,7 @@ export default function ModalsInternal({ dict }: { dict: Dictionary }) {
     <>
       {contexto?.mostrarConexion && (
         <Conexion
+          setPantalla={contexto?.setPantalla}
           setMostrarConexion={contexto?.setMostrarConexion}
           dict={dict}
           setCuenta={contexto?.setCuenta}

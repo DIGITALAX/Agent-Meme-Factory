@@ -2,11 +2,13 @@ import { FunctionComponent } from "react";
 import { ConexionProps } from "../types/modals.types";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { ethers } from "ethers";
+import { Pantalla } from "@/components/Common/types/common.types";
 
 const Conexion: FunctionComponent<ConexionProps> = ({
   setMostrarConexion,
   dict,
   setCuenta,
+  setPantalla
 }): JSX.Element => {
   const { openConnectModal } = useConnectModal();
 
@@ -32,6 +34,7 @@ const Conexion: FunctionComponent<ConexionProps> = ({
               direccion: billetera?.address as `0x${string}`,
             });
             setMostrarConexion(false);
+            setPantalla(Pantalla.Perfil);
           }}
         >
           {dict.Home.aleatorio}

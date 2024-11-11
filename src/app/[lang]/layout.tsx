@@ -1,8 +1,10 @@
 import Modals from "@/components/Modals/modules/Modals";
 import Providers from "../providers";
 import "@rainbow-me/rainbowkit/styles.css";
+import "@farcaster/auth-kit/styles.css";
 import "./../globals.css";
 import type { Metadata } from "next";
+
 
 export const metadata: Metadata = {
   title: "Agent Meme Factory",

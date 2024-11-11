@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 html {
-    background-color: #0A0A0A;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-
+  background-color: #0a0a0a;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
+    Arial, sans-serif;
+  color: #0a0a0a;
 }

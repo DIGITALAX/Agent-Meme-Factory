@@ -8,19 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        100: "37rem",
+      },
       colors: {
         negro: "#0A0A0A",
         gris: "#181818",
         ligero: "#454545",
+        nubes: "#7f7f7f",
       },
       sans: [
-        'system-ui',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        'Roboto',
-        'Helvetica',
-        'Arial',
-        'sans-serif',
+        "system-ui",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Roboto",
+        "Helvetica",
+        "Arial",
+        "sans-serif",
       ],
     },
   },

@@ -19,8 +19,6 @@ export default function Entry({
   const {
     abrirFijado,
     setAbrirFijado,
-    pantalla,
-    setPantalla,
     fijado,
     setFijado,
     filtro,
@@ -40,8 +38,8 @@ export default function Entry({
       }}
     >
       <Bar
-        setPantalla={setPantalla}
-        pantalla={pantalla}
+        setPantalla={contexto?.setPantalla!}
+        pantalla={contexto?.pantalla!}
         abrirFijado={abrirFijado}
         setAbrirFijado={setAbrirFijado}
         dict={dict}
@@ -57,11 +55,12 @@ export default function Entry({
       />
       <div className="relative w-full h-full flex items-start justify-center pt-5">
         <Cambio
-          setPantalla={setPantalla}
-          pantalla={pantalla}
+          setPantalla={contexto?.setPantalla!}
+          pantalla={contexto?.pantalla!}
           setFijado={setFijado}
           fijado={fijado}
           dict={dict}
+          setCuenta={contexto?.setCuenta!}
           fabrica={fabrica}
           cuenta={contexto?.cuenta}
           setFabrica={setFabrica}
