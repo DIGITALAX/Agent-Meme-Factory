@@ -7,7 +7,22 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        negro: "#0A0A0A",
+        gris: "#181818",
+        ligero: "#454545",
+      },
+      sans: [
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Roboto',
+        'Helvetica',
+        'Arial',
+        'sans-serif',
+      ],
+    },
   },
   plugins: [],
 };

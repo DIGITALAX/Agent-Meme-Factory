@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "pin": "Pin",
+    "Hogar": "Home",
+    "Marcadores": "Bookmarks",
+    "Buscar": "Search",
+    "Actividad": "Activity",
+    "Perfil": "Profile",
+    "Fabrica": "Factory",
+    "foryou": "For You",
+    "searching": "Search...",
+    "Memes": "Memes",
+    "Ropa": "Streetwear",
+    "Pegatinas": "Stickers",
+    "Moneda": "Coins"
+  },
+  "404": {
+    "nada": "Error 404: This page has been hijacked by rogue NPCs. We are negotiating it's liberation."
+  }
+}

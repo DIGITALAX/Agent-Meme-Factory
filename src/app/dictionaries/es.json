@@ -1,0 +1,20 @@
+{
+  "Home": {
+    "pin": "Fijar",
+    "Hogar": "Hogar",
+    "Marcadores": "Marcadores",
+    "Buscar": "Buscar",
+    "Actividad": "Actividad",
+    "Perfil": "Perfil",
+    "Fabrica": "Fábrica",
+    "foryou": "Para Ti",
+    "searching": "Buscar...",
+    "Memes": "Memes",
+    "Ropa": "Ropa Callejera",
+    "Pegatinas": "Pegatinas",
+    "Moneda": "Monedas"
+  },
+  "404": {
+    "nada": "Error 404: La página ha sido secuestrada por NPCs rebeldes. Estamos negociando su liberación."
+  }
+}
