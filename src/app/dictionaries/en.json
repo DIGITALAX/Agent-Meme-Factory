@@ -12,7 +12,12 @@
     "Memes": "Memes",
     "Ropa": "Streetwear",
     "Pegatinas": "Stickers",
-    "Moneda": "Coins"
+    "Moneda": "Coins",
+    "conexion": "Connect",
+    "aleatorio": "Burner Wallet",
+    "billetera": "Your Wallet",
+    "copiado": "Copied!",
+    "clave": "Copy Your Private Key"
   },
   "404": {
     "nada": "Error 404: This page has been hijacked by rogue NPCs. We are negotiating it's liberation."

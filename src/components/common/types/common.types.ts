@@ -1,5 +1,7 @@
+import { ethers } from "ethers";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SetStateAction } from "react";
+import { Profile } from "../../../../generated";
 
 export enum Pantalla {
   Hogar,
@@ -21,8 +23,19 @@ export type FeedProps = {
   titulo: string;
 };
 
+export type Cuenta = {
+  quemadora?: ethers.HDNodeWallet | undefined;
+  quemadoraAbierta?: boolean;
+  farcaster?: undefined;
+  farcasterAbierto?: boolean;
+  lens?: Profile | undefined;
+  lensAbierto?: boolean;
+  direccion?: `0x${string}` | undefined;
+};
+
 export type PerfilProps = {
   dict: Dictionary;
+  cuenta: Cuenta | undefined;
 };
 
 export type BuscarProps = {
@@ -41,6 +54,7 @@ export type CambioProps = {
   dict: Dictionary;
   fabrica: Fabrica;
   setFabrica: (e: SetStateAction<Fabrica>) => void;
+  cuenta: Cuenta | undefined;
 };
 
 export type BarProps = {
@@ -54,12 +68,19 @@ export type BarProps = {
   filtro: string;
   setFiltro: (e: SetStateAction<string>) => void;
   router: AppRouterInstance;
+  conectado: boolean;
+  setMostrarConexion: (e: SetStateAction<boolean>) => void;
 };
 
 export type Dictionary = {
   Home: {
     pin: string;
+    aleatorio: string;
+    clave: string;
+    billetera: string;
+    conexion: string;
     Hogar: string;
+    copiado: string;
     Marcadores: string;
     Buscar: string;
     foryou: string;

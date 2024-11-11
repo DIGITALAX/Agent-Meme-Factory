@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
 import { Fabrica, FabricaCambioProps } from "../types/common.types";
-import Memes from "./Memes";
 import Moneda from "./Moneda";
 import Pegatinas from "./Pegatinas";
 import Ropa from "./Ropa";
+import Memes from "./Memes";
 
 const FabricaCambio: FunctionComponent<FabricaCambioProps> = ({
   fabrica,

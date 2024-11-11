@@ -16,6 +16,7 @@ const Cambio: FunctionComponent<CambioProps> = ({
   dict,
   fabrica,
   setFabrica,
+  cuenta
 }): JSX.Element => {
   switch (pantalla) {
     case Pantalla.Fabrica:
@@ -86,7 +87,7 @@ const Cambio: FunctionComponent<CambioProps> = ({
       return <Buscar dict={dict} />;
 
     case Pantalla.Perfil:
-      return <Perfil dict={dict} />;
+      return <Perfil dict={dict} cuenta={cuenta}/>;
 
     case Pantalla.Marcadores:
       return <Feed titulo={dict.Home.Marcadores} />;

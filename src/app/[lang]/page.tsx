@@ -1,5 +1,5 @@
 
-import Entry from "@/components/common/modules/Entry";
+import Entry from "@/components/Common/modules/Entry";
 import { getDictionary } from "./dictionaries";
 
 export default async function IndexPage({

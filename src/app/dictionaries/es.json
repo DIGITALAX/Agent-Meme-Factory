@@ -12,7 +12,12 @@
     "Memes": "Memes",
     "Ropa": "Ropa Callejera",
     "Pegatinas": "Pegatinas",
-    "Moneda": "Monedas"
+    "Moneda": "Monedas",
+    "conexion": "Conéctese",
+    "aleatorio": "Billetera Quemadora",
+    "billetera": "Su Billetera",
+    "copiado": "¡Copiado!",
+    "clave": "Copie Su Clave Privada"
   },
   "404": {
     "nada": "Error 404: La página ha sido secuestrada por NPCs rebeldes. Estamos negociando su liberación."

@@ -20,6 +20,8 @@ const Bar: FunctionComponent<BarProps> = ({
   filtro,
   setFiltro,
   router,
+  setMostrarConexion,
+  conectado,
 }): JSX.Element => {
   return (
     <div className="absolute top-0 z-10 left-0 bg-gris w-10 h-full flex justify-between items-center flex-col px-2 py-4">
@@ -58,7 +60,11 @@ const Bar: FunctionComponent<BarProps> = ({
           className="relative w-fit h-fit flex items-center justify-center cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
-            setPantalla(Pantalla.Actividad);
+            if (!conectado) {
+              setMostrarConexion(true);
+            } else {
+              setPantalla(Pantalla.Actividad);
+            }
           }}
         >
           <TiHeart
@@ -82,7 +88,11 @@ const Bar: FunctionComponent<BarProps> = ({
           className="relative w-fit h-fit flex items-center justify-center cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
-            setPantalla(Pantalla.Perfil);
+            if (!conectado) {
+              setMostrarConexion(true);
+            } else {
+              setPantalla(Pantalla.Perfil);
+            }
           }}
         >
           <MdOutlineManageAccounts
@@ -105,7 +115,11 @@ const Bar: FunctionComponent<BarProps> = ({
           className="relative w-fit h-fit flex items-center justify-center cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
-            setPantalla(Pantalla.Marcadores);
+            if (!conectado) {
+              setMostrarConexion(true);
+            } else {
+              setPantalla(Pantalla.Marcadores);
+            }
           }}
         >
           <IoBookmarkSharp
