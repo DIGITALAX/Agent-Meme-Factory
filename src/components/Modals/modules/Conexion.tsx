@@ -18,7 +18,7 @@ const Conexion: FunctionComponent<ConexionProps> = ({
       onClick={() => setMostrarConexion(false)}
     >
       <div
-        className="rounded-md bg-gris w-96 h-fit text-sm text-white flex flex-col gap-3 items-center justify-start p-3 cursor-default"
+        className="rounded-md bg-negro w-96 h-fit text-sm text-white flex flex-col gap-3 items-center justify-start p-3 cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative w-fit pb-3 h-fit flex items-center justify-center">

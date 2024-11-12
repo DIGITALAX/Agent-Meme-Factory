@@ -19,6 +19,9 @@ const Fijado: FunctionComponent<FijadoProps> = ({
   setCuenta,
   setFabrica,
   setFijado,
+  setMostrarConexion,
+  conectado,
+  setPublicar
 }): JSX.Element => {
   switch (elemento) {
     case Pantalla.Fabrica:
@@ -110,11 +113,30 @@ const Fijado: FunctionComponent<FijadoProps> = ({
       );
 
     case Pantalla.Marcadores:
-      return <Feed setFijado={setFijado} titulo={dict.Home.Marcadores} depin />;
+      return (
+        <Feed
+          setPublicar={setPublicar}
+          conectado={conectado}
+          setMostrarConexion={setMostrarConexion}
+          dict={dict}
+          setFijado={setFijado}
+          titulo={dict.Home.Marcadores}
+          depin
+        />
+      );
 
     case Pantalla.ParaTi:
     default:
-      return <Feed setFijado={setFijado} titulo={dict.Home.ParaTi} />;
+      return (
+        <Feed
+          setPublicar={setPublicar}
+          conectado={conectado}
+          setMostrarConexion={setMostrarConexion}
+          dict={dict}
+          setFijado={setFijado}
+          titulo={dict.Home.ParaTi}
+        />
+      );
   }
 };
 

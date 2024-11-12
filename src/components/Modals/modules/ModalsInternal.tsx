@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import Conexion from "./Conexion";
 import Quemadora from "./Quemadora";
 import { useAccount } from "wagmi";
+import Publicar from "./Publicar";
 
 export default function ModalsInternal({ dict }: { dict: Dictionary }) {
   const contexto = useContext(ModalContext);
@@ -21,6 +22,9 @@ export default function ModalsInternal({ dict }: { dict: Dictionary }) {
 
   return (
     <>
+      {contexto?.publicar && (
+        <Publicar dict={dict} setPublicar={contexto?.setPublicar!} />
+      )}
       {contexto?.mostrarConexion && (
         <Conexion
           setPantalla={contexto?.setPantalla}

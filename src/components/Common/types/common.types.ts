@@ -12,6 +12,27 @@ export enum Pantalla {
   ParaTi,
 }
 
+export enum OpcionActividad {
+  Todo = "Todo",
+  Respuestas = "Respuestas",
+  Menciones = "Menciones",
+  Citas = "Citas",
+  Republicaciones = "Republicaciones",
+  Solicitudes = "Solicitudes",
+}
+
+export enum Opcion {
+  ParaTi = "ParaTi",
+  Siguiendo = "Siguiendo",
+  TeGusta = "TeGusta",
+}
+
+export enum Indexar {
+  Inactivo = "inactivo",
+  Exito = "exito",
+  Indexando = "indexando",
+}
+
 export enum Fabrica {
   Memes = "Memes",
   Ropa = "Ropa",
@@ -23,6 +44,10 @@ export type FeedProps = {
   titulo: string;
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
   depin?: boolean;
+  dict: Dictionary;
+  setPublicar: (e: SetStateAction<boolean>) => void;
+  conectado: boolean;
+  setMostrarConexion: (e: SetStateAction<boolean>) => void;
 };
 
 export type Cuenta = {
@@ -75,6 +100,9 @@ export type CambioProps = {
   fabrica: Fabrica;
   setFabrica: (e: SetStateAction<Fabrica>) => void;
   cuenta: Cuenta | undefined;
+  conectado: boolean;
+  setPublicar: (e: SetStateAction<boolean>) => void;
+  setMostrarConexion: (e: SetStateAction<boolean>) => void;
 };
 
 export type BarProps = {
@@ -96,8 +124,11 @@ export type Dictionary = {
   Home: {
     pin: string;
     aleatorio: string;
+    publicar: string;
     reiniciar: string;
     clave: string;
+    Siguiendo: string;
+    TeGusta: string;
     social: string;
     billetera: string;
     conexion: string;
@@ -110,6 +141,12 @@ export type Dictionary = {
     Perfil: string;
     Fabrica: string;
     searching: string;
+    Todo: string;
+    Respuestas: string;
+    Menciones: string;
+    Citas: string;
+    Republicaciones: string;
+    Solicitudes: string;
   };
   "404": {
     nada: string;
@@ -122,6 +159,9 @@ export type FabricaCambioProps = {
 
 export type FijadoProps = {
   elemento: Pantalla;
+  conectado: boolean;
+  setPublicar: (e: SetStateAction<boolean>) => void;
+  setMostrarConexion: (e: SetStateAction<boolean>) => void;
   dict: Dictionary;
   setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
   fabrica: Fabrica;

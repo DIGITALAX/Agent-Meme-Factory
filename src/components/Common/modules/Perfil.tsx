@@ -7,6 +7,8 @@ import { ethers } from "ethers";
 import { ModalContext } from "@/app/providers";
 import { FaAngleDown } from "react-icons/fa6";
 import { RiUnpinFill } from "react-icons/ri";
+import Image from "next/image";
+import { INFURA_GATEWAY } from "@/lib/constants";
 
 const Perfil: FunctionComponent<PerfilProps> = ({
   dict,
@@ -78,48 +80,89 @@ const Perfil: FunctionComponent<PerfilProps> = ({
             )}
           </div>
         </div>
-
         <div className="relative w-full h-fit flex flex-col gap-2 justify-center items-center">
-          <div
-            className={`relative w-full flex items-start justify-start p-2 rounded-md bg-negro ${
-              abierto?.lens ? "h-96" : "h-60"
-            }`}
-          >
+          {cuenta?.lens ? (
             <div
-              className="relative w-full h-fit flex items-end justify-end cursor-pointer"
-              onClick={() =>
-                setAbierto({
-                  ...abierto,
-                  lens: !abierto?.lens,
-                })
-              }
+              className={`relative w-full flex items-start justify-start p-2 rounded-md bg-negro ${
+                abierto?.lens ? "h-96" : "h-60"
+              }`}
             >
-              <FaAngleDown
-                size={20}
-                className={`hover:fill-white fill-nubes`}
-              />
+              <div
+                className="relative w-full h-fit flex items-end justify-end cursor-pointer"
+                onClick={() =>
+                  setAbierto({
+                    ...abierto,
+                    lens: !abierto?.lens,
+                  })
+                }
+              >
+                <FaAngleDown
+                  size={20}
+                  className={`hover:fill-white fill-nubes`}
+                />
+              </div>
             </div>
-          </div>
-          <div
-            className={`relative w-full h-60 flex items-start justify-start p-2 rounded-md bg-negro  ${
-              abierto?.farcaster ? "h-96" : "h-60"
-            }`}
-          >
+          ) : (
             <div
-              className="relative w-full h-fit flex items-end justify-end cursor-pointer"
-              onClick={() =>
-                setAbierto({
-                  ...abierto,
-                  farcaster: !abierto?.farcaster,
-                })
-              }
+              className="relative w-full h-14 rounded-md rounded-md bg-negro items-center justify-between flex flex-row p-2"
+              title="Lens"
             >
-              <FaAngleDown
-                size={20}
-                className={`hover:fill-white fill-nubes`}
-              />
+              <div className="relative w-10 h-10 rounded-md flex">
+                <Image
+                  draggable={false}
+                  src={`${INFURA_GATEWAY}/ipfs/QmWGGYR4a3fQm2hREsnHpYnFCSqWGi2tzsGFT1SrHbMyC8`}
+                  layout="fill"
+                  objectFit="cover"
+                  alt="Lens"
+                  className="rounded-md"
+                />
+              </div>
+              <div className="relative px-3 py-1 flex items-center justify-center bg-gris text-white hover:text-ligero rounded-md cursor-pointer active:scale-95">
+                {dict.Home.conexion}
+              </div>
             </div>
-          </div>
+          )}
+          {cuenta?.farcaster ? (
+            <div
+              className={`relative w-full h-60 flex items-start justify-start p-2 rounded-md bg-negro  ${
+                abierto?.farcaster ? "h-96" : "h-60"
+              }`}
+            >
+              <div
+                className="relative w-full h-fit flex items-end justify-end cursor-pointer"
+                onClick={() =>
+                  setAbierto({
+                    ...abierto,
+                    farcaster: !abierto?.farcaster,
+                  })
+                }
+              >
+                <FaAngleDown
+                  size={20}
+                  className={`hover:fill-white fill-nubes`}
+                />
+              </div>
+            </div>
+          ) : (
+            <div
+              className="relative w-full h-14 rounded-md rounded-md bg-negro items-center justify-between flex flex-row p-2"
+              title="Farcaster"
+            >
+              <div className="relative w-10 h-9 rounded-md flex">
+                <Image
+                  draggable={false}
+                  src={`${INFURA_GATEWAY}/ipfs/QmZZV3AUs5Di9De9iekMeQ6SYCt11KY8kqbYYYjWJTWWb8`}
+                  layout="fill"
+                  objectFit="cover"
+                  alt="Farcaster"
+                  className="rounded-md"
+                />
+              </div>
+              <div className="relative px-3 py-1 flex items-center justify-center bg-gris text-white hover:text-ligero rounded-md cursor-pointer active:scale-95">
+                {dict.Home.conexion}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

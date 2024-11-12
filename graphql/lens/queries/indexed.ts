@@ -7,7 +7,7 @@ import {
 } from "./../../../generated";
 import { apolloClient } from "@/lib/lens/client";
 import { SetStateAction } from "react";
-import { Indexar } from "@/components/common/types/common.types";
+import { Indexar } from "@/components/Common/types/common.types";
 
 const handleIndexCheck = async (
   tx: LensTransactionStatusRequest,

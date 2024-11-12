@@ -154,7 +154,7 @@ const Bar: FunctionComponent<BarProps> = ({
             {dict.Home.pin}
           </div>
           <input
-            className="rounded-full w-full flex h-7 px-1 py-px text-left border border-white bg-black text-white text-xs"
+            className="rounded-full w-full flex h-7 px-1 py-px text-left border border-white bg-black text-white text-xs focus:outline-none focus:ring-0 focus:ring-offset-0 focus:border-transparent focus:shadow-none"
             placeholder={dict.Home.searching}
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}

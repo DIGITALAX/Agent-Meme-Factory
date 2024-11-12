@@ -17,3 +17,8 @@ export type QuemadoraProps = {
   cuenta: Cuenta | undefined;
   dict: Dictionary;
 };
+
+export type PublicarProps = {
+  setPublicar: (e: SetStateAction<boolean>) => void;
+  dict: Dictionary;
+};

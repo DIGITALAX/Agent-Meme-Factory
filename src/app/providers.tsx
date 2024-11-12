@@ -31,6 +31,8 @@ export const ModalContext = createContext<
       cuenta: Cuenta | undefined;
       pantalla: Pantalla;
       setPantalla: (e: SetStateAction<Pantalla>) => void;
+      setPublicar: (e: SetStateAction<boolean>) => void;
+      publicar: boolean;
     }
   | undefined
 >(undefined);
@@ -38,6 +40,7 @@ export const ModalContext = createContext<
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [pantalla, setPantalla] = useState<Pantalla>(Pantalla.Hogar);
   const [mostrarConexion, setMostrarConexion] = useState<boolean>(false);
+  const [publicar, setPublicar] = useState<boolean>(false);
   const [cuenta, setCuenta] = useState<Cuenta | undefined>();
   return (
     <WagmiProvider config={config}>
@@ -57,7 +60,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
                 setCuenta,
                 cuenta,
                 setPantalla,
-                pantalla
+                pantalla,
+                setPublicar,
+                publicar,
               }}
             >
               {children}

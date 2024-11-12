@@ -64,6 +64,11 @@ export default function Entry({
           fabrica={fabrica}
           cuenta={contexto?.cuenta}
           setFabrica={setFabrica}
+          setMostrarConexion={contexto?.setMostrarConexion!}
+          setPublicar={contexto?.setPublicar!}
+          conectado={
+            contexto?.cuenta?.quemadora?.address !== undefined || isConnected
+          }
         />
       </div>
       <div
@@ -75,6 +80,7 @@ export default function Entry({
           ) {
             contexto?.setMostrarConexion(true);
           } else {
+            contexto?.setPublicar(true);
           }
         }}
       >

@@ -63,7 +63,6 @@ const usePerfil = (contexto: React.ContextType<typeof ModalContext>) => {
           ...contexto?.cuenta,
           lens: undefined,
         });
-        setNotificacion(Notificacion.Perfil);
       }
     } catch (err: any) {
       console.error(err.message);

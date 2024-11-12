@@ -19,7 +19,16 @@
     "copiado": "Copied!",
     "clave": "Copy Your Private Key",
     "reiniciar": "New Random Wallet",
-    "social": "Social Accounts"
+    "social": "Social Accounts",
+    "Siguiendo": "Following",
+    "TeGusta": "Liked",
+    "publicar": "Share Something?",
+    "Todo": "All",
+    "Respuestas": "Replies",
+    "Menciones": "Mentions",
+    "Citas": "Quotes",
+    "Republicaciones": "Mirrors",
+    "Solicitudes": "Requests"
   },
   "404": {
     "nada": "Error 404: This page has been hijacked by rogue NPCs. We are negotiating it's liberation."
