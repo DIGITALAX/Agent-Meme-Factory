@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Fabrica, Pantalla } from "../types/common.types";
 
 const useBar = () => {

@@ -24,6 +24,7 @@ const Cambio: FunctionComponent<CambioProps> = ({
   setMostrarConexion,
   conectado,
   setPublicar,
+  setURL,
 }): JSX.Element => {
   switch (pantalla) {
     case Pantalla.Fabrica:
@@ -102,6 +103,8 @@ const Cambio: FunctionComponent<CambioProps> = ({
           setFijado={setFijado}
           cuenta={cuenta}
           setCuenta={setCuenta}
+          setMostrarConexion={setMostrarConexion}
+          setURL={setURL}
         />
       );
 
@@ -129,6 +132,7 @@ const Cambio: FunctionComponent<CambioProps> = ({
             {fijado?.map((elemento: Pantalla, indice: number) => {
               return (
                 <Fijado
+                  setURL={setURL}
                   conectado={conectado}
                   setMostrarConexion={setMostrarConexion}
                   setPublicar={setPublicar}

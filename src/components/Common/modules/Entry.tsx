@@ -58,6 +58,7 @@ export default function Entry({
           setPantalla={contexto?.setPantalla!}
           pantalla={contexto?.pantalla!}
           setFijado={setFijado}
+          setURL={contexto?.setURL!}
           fijado={fijado}
           dict={dict}
           setCuenta={contexto?.setCuenta!}

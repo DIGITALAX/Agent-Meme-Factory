@@ -1,14 +1,13 @@
-import { useState } from "react";
-import getDefaultProfile from "../../../../graphql/lens/queries/default";
-import generateChallenge from "../../../../graphql/lens/queries/challenge";
-import authenticate from "../../../../graphql/lens/mutations/authenticate";
-import { setAuthenticationToken } from "@/lib/utils";
-import { Profile } from "../../../../generated";
-import { useSignMessage } from "wagmi";
-import { ModalContext } from "@/app/providers";
+import { SetStateAction, useEffect, useState } from "react";
+import { Cuenta } from "../types/common.types";
+import { Profile, useLogin, useOwnedHandles } from "@lens-protocol/react-web";
+import { useSignIn } from "@farcaster/auth-kit";
 
-const usePerfil = (contexto: React.ContextType<typeof ModalContext>) => {
-  const { signMessageAsync } = useSignMessage();
+const usePerfil = (
+  cuenta: Cuenta | undefined,
+  setCuenta: (e: SetStateAction<Cuenta | undefined>) => void,
+  setURL: (e: SetStateAction<string | undefined>) => void,
+) => {
   const [copiado, setCopiado] = useState<boolean>(false);
   const [lensCargando, setLensCargando] = useState(false);
   const [farcasterCargando, setFarcasterCargando] = useState(false);
@@ -19,10 +18,38 @@ const usePerfil = (contexto: React.ContextType<typeof ModalContext>) => {
     lens: false,
     farcaster: false,
   });
+  const { execute } = useLogin();
+  const handles = useOwnedHandles({ for: cuenta?.direccion as string });
+  const { signIn, connect, signOut, url, isConnected, data, error } = useSignIn(
+    {
+      onSuccess: (datos) => {
+        setCuenta({
+          ...cuenta,
+          farcaster: datos,
+        });
+        setFarcasterCargando(false);
+      },
+      onError: () => {
+        setFarcasterCargando(false);
+      },
+    }
+  );
+
+  console.log(data, error);
 
   const manejarFarcaster = async () => {
     setFarcasterCargando(true);
     try {
+      if (isConnected && cuenta?.farcaster) {
+        signOut();
+        setCuenta({
+          ...cuenta,
+          farcaster: undefined,
+        });
+      } else {
+        connect();
+        signIn();
+      }
     } catch (err: any) {
       console.error(err.message);
     }
@@ -32,35 +59,25 @@ const usePerfil = (contexto: React.ContextType<typeof ModalContext>) => {
   const manejarLens = async () => {
     setLensCargando(true);
     try {
-      const profile = await getDefaultProfile(
-        {
-          for: contexto?.cuenta?.direccion,
-        },
-        false
-      );
-
-      if (profile?.data?.defaultProfile?.id) {
-        const challengeResponse = await generateChallenge({
-          for: profile?.data?.defaultProfile?.id,
-          signedBy: contexto?.cuenta?.direccion,
+      if (handles?.data && handles?.data?.length > 0) {
+        const result = await execute({
+          address: cuenta?.direccion as string,
+          profileId: handles?.data?.[0]?.linkedTo?.nftTokenId as any,
         });
-        const signature = await signMessageAsync({
-          message: challengeResponse.data?.challenge.text!,
-        });
-        const accessTokens = await authenticate({
-          id: challengeResponse.data?.challenge.id,
-          signature: signature,
-        });
-        if (accessTokens) {
-          setAuthenticationToken({ token: accessTokens.data?.authenticate! });
-          contexto?.setCuenta({
-            ...contexto?.cuenta,
-            lens: profile?.data?.defaultProfile as Profile,
+        if (result.isSuccess()) {
+          setCuenta({
+            ...cuenta,
+            lens: result.value as Profile,
+          });
+        } else {
+          setCuenta({
+            ...cuenta,
+            lens: undefined,
           });
         }
       } else {
-        contexto?.setCuenta({
-          ...contexto?.cuenta,
+        setCuenta({
+          ...cuenta,
           lens: undefined,
         });
       }
@@ -69,6 +86,12 @@ const usePerfil = (contexto: React.ContextType<typeof ModalContext>) => {
     }
     setLensCargando(false);
   };
+
+  useEffect(() => {
+    if (url) {
+      setURL(url);
+    }
+  }, [url]);
 
   return {
     copiado,

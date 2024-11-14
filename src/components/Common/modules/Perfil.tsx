@@ -1,14 +1,16 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { Pantalla, PerfilProps } from "../types/common.types";
 import usePerfil from "../hooks/usePerfil";
 import manejarCopiar from "@/lib/helpers/manejarCopiar";
 import { VscRefresh } from "react-icons/vsc";
 import { ethers } from "ethers";
-import { ModalContext } from "@/app/providers";
+import { config } from "@/app/providers";
 import { FaAngleDown } from "react-icons/fa6";
 import { RiUnpinFill } from "react-icons/ri";
 import Image from "next/image";
 import { INFURA_GATEWAY } from "@/lib/constants";
+import { AiOutlineLoading, AiOutlineLogout } from "react-icons/ai";
+import { disconnect } from "@wagmi/core";
 
 const Perfil: FunctionComponent<PerfilProps> = ({
   dict,
@@ -16,22 +18,25 @@ const Perfil: FunctionComponent<PerfilProps> = ({
   setCuenta,
   setFijado,
   depin,
+  setMostrarConexion,
+  setURL
 }): JSX.Element => {
-  const contexto = useContext(ModalContext);
   const {
     copiado,
     setCopiado,
     manejarLens,
     manejarFarcaster,
+    farcasterCargando,
+    lensCargando,
     abierto,
     setAbierto,
-  } = usePerfil(contexto);
+  } = usePerfil(cuenta, setCuenta, setURL);
   return (
     <div className="relative w-100 flex flex-col gap-3 items-center justify-start h-full">
       <div className="relative text-sm text-white w-fit h-10 text-center">
         {dict.Home.Perfil}
       </div>
-      {depin && (
+      {depin ? (
         <div
           className="absolute cursor-pointer right-0 justify-center items-center"
           onClick={() =>
@@ -39,6 +44,23 @@ const Perfil: FunctionComponent<PerfilProps> = ({
           }
         >
           <RiUnpinFill size={15} className={`hover:fill-white fill-nubes`} />
+        </div>
+      ) : (
+        <div
+          className="absolute cursor-pointer right-0 justify-center items-center"
+          onClick={async () => {
+            await disconnect(config);
+            setCuenta({
+              ...cuenta,
+              direccion: undefined,
+            });
+            setMostrarConexion(true);
+          }}
+        >
+          <AiOutlineLogout
+            size={15}
+            className={`hover:fill-white fill-nubes`}
+          />
         </div>
       )}
       <div className="relative bg-gris w-full flex flex-col gap-8 items-center justify-start p-3 rounded-lg h-full">
@@ -117,8 +139,22 @@ const Perfil: FunctionComponent<PerfilProps> = ({
                   className="rounded-md"
                 />
               </div>
-              <div className="relative px-3 py-1 flex items-center justify-center bg-gris text-white hover:text-ligero rounded-md cursor-pointer active:scale-95">
-                {dict.Home.conexion}
+              <div
+                className={`"relative px-3 py-1 flex items-center justify-center bg-gris text-white w-28 h-8 hover:text-ligero rounded-md ${
+                  !lensCargando && "cursor-pointer active:scale-95"
+                }`}
+                onClick={() => !lensCargando && manejarLens()}
+              >
+                {lensCargando ? (
+                  <AiOutlineLoading
+                    size={15}
+                    className={`fill-nubes animate-spin`}
+                  />
+                ) : cuenta?.lens ? (
+                  dict.Home.salir
+                ) : (
+                  dict.Home.conexion
+                )}
               </div>
             </div>
           )}
@@ -158,8 +194,22 @@ const Perfil: FunctionComponent<PerfilProps> = ({
                   className="rounded-md"
                 />
               </div>
-              <div className="relative px-3 py-1 flex items-center justify-center bg-gris text-white hover:text-ligero rounded-md cursor-pointer active:scale-95">
-                {dict.Home.conexion}
+              <div
+                className={`"relative px-3 py-1 flex items-center justify-center bg-gris text-white w-28 h-8 hover:text-ligero rounded-md ${
+                  !farcasterCargando && "cursor-pointer active:scale-95"
+                }`}
+                onClick={() => !farcasterCargando && manejarFarcaster()}
+              >
+                {farcasterCargando ? (
+                  <AiOutlineLoading
+                    size={15}
+                    className={`fill-nubes animate-spin`}
+                  />
+                ) : cuenta?.farcaster ? (
+                  dict.Home.salir
+                ) : (
+                  dict.Home.conexion
+                )}
               </div>
             </div>
           )}

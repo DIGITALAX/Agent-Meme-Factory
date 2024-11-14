@@ -1,7 +1,8 @@
+import { StatusAPIResponse } from "@farcaster/auth-kit";
+import { Profile } from "@lens-protocol/react-web";
 import { ethers } from "ethers";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { SetStateAction } from "react";
-import { Profile } from "../../../../generated";
 export enum Pantalla {
   Hogar,
   Marcadores,
@@ -53,17 +54,7 @@ export type FeedProps = {
 export type Cuenta = {
   quemadora?: ethers.HDNodeWallet | undefined;
   quemadoraAbierta?: boolean;
-  farcaster?:
-    | {
-        fid?: number;
-        pfpUrl?: string;
-        username?: string;
-        displayName?: string;
-        bio?: string;
-        custody?: `0x${string}`;
-        verifications?: string[];
-      }
-    | undefined;
+  farcaster?: StatusAPIResponse | undefined;
   farcasterAbierto?: boolean;
   lens?: Profile | undefined;
   lensAbierto?: boolean;
@@ -76,6 +67,8 @@ export type PerfilProps = {
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
   setCuenta: (e: SetStateAction<Cuenta | undefined>) => void;
   depin?: boolean;
+  setMostrarConexion: (e: SetStateAction<boolean>) => void;
+  setURL: (e: SetStateAction<string | undefined>) => void;
 };
 
 export type BuscarProps = {
@@ -102,6 +95,7 @@ export type CambioProps = {
   cuenta: Cuenta | undefined;
   conectado: boolean;
   setPublicar: (e: SetStateAction<boolean>) => void;
+  setURL: (e: SetStateAction<string | undefined>) => void;
   setMostrarConexion: (e: SetStateAction<boolean>) => void;
 };
 
@@ -147,6 +141,7 @@ export type Dictionary = {
     Citas: string;
     Republicaciones: string;
     Solicitudes: string;
+    salir: string;
   };
   "404": {
     nada: string;
@@ -168,4 +163,5 @@ export type FijadoProps = {
   setFabrica: (e: SetStateAction<Fabrica>) => void;
   cuenta: Cuenta | undefined;
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
+  setURL: (e: SetStateAction<string | undefined>) => void;
 };
