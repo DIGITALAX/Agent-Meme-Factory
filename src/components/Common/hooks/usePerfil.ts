@@ -35,7 +35,6 @@ const usePerfil = (
     }
   );
 
-  console.log(data, error);
 
   const manejarFarcaster = async () => {
     setFarcasterCargando(true);
