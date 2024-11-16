@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { OpcionActividad } from "../types/common.types";
+import { usePublications } from "@lens-protocol/react-web";
 
-const useActividad = () => {
+const useActividad = (profileId: string | undefined) => {
   const [opcion, setOpcion] = useState<OpcionActividad>(OpcionActividad.Todo);
   const [opcionAbierta, setOpcionAbierta] = useState<boolean>(false);
-  const [actividadCargando, setActividadCargando] = useState<boolean>(false);
-  const [actividad, setActividad] = useState<[]>([]);
 
-  const manejarActividad = async () => {
-    setActividadCargando(true);
-    try {
-    } catch (err: any) {
-      console.error(err.message);
-    }
-    setActividadCargando(false);
-  };
-
-  useEffect(() => {
-    manejarActividad();
-  }, [opcion]);
+  const { data: actividad = [], loading: actividadCargando } = profileId
+    ? usePublications({
+        where: {
+          from: profileId as any,
+        },
+      })
+    : { data: [], loading: false };
 
   return {
     opcion,
@@ -27,7 +21,6 @@ const useActividad = () => {
     setOpcionAbierta,
     actividadCargando,
     actividad,
-    manejarActividad
   };
 };
 

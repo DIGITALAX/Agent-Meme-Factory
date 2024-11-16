@@ -3,14 +3,27 @@ import { BuscarProps, Pantalla } from "../types/common.types";
 import { RiUnpinFill } from "react-icons/ri";
 import useBuscar from "../hooks/useBuscar";
 import { TbLoaderQuarter } from "react-icons/tb";
+import PublicacionBuscada from "@/components/Lens/modules/PublicacionBuscada";
+import PerfilBuscado from "@/components/Lens/modules/PerfilBuscado";
+import { PrimaryPublication, Profile } from "@lens-protocol/react-web";
+import { useRouter } from "next/navigation";
 
 const Buscar: FunctionComponent<BuscarProps> = ({
   dict,
   setFijado,
   depin,
 }): JSX.Element => {
-  const { setBuscar, buscar, buscarCargando, manejarBuscar, resultados } =
-    useBuscar();
+  const {
+    setBuscar,
+    buscar,
+    perfiles,
+    perfilesCargando,
+    publicaciones,
+    publicacionesCargando,
+    cambio,
+    setCambio,
+  } = useBuscar();
+  const router = useRouter();
   return (
     <div className="relative w-100 flex flex-col gap-3 items-center justify-start h-full">
       <div className="relative text-sm text-white w-fit h-10 text-center">
@@ -32,18 +45,56 @@ const Buscar: FunctionComponent<BuscarProps> = ({
           placeholder={dict.Home.searching}
           value={buscar}
           onChange={(e) => setBuscar(e.target.value)}
-          onKeyDown={(e) => e.key == "Enter" && manejarBuscar()}
         />
+        {(Number(perfiles?.length) > 0 ||
+          Number(publicaciones?.length) > 0) && (
+          <div className="relative w-full h-fit flex items-center justify-center flex-row text-sm text-white">
+            <div
+              onClick={() => setCambio(0)}
+              className={`${
+                !cambio && "bg-ligero"
+              } relative w-fit rounded-sm h-fit cursor-pointer flex items-center justify-center px-3 py-1.5`}
+            >
+              {dict.Home.perfiles}
+            </div>
+            <div
+              onClick={() => setCambio(1)}
+              className={`${
+                cambio && "bg-ligero"
+              } relative rounded-sm w-fit h-fit cursor-pointer flex items-center justify-center  px-3 py-1.5`}
+            >
+              {dict.Home.publicaciones}
+            </div>
+          </div>
+        )}
         <div className="relative w-full h-full overflow-y-scroll items-start justify-start flex">
-          {buscarCargando ? (
+          {perfilesCargando || publicacionesCargando ? (
             <div className="relative w-full h-full flex flex-col items-center justify-center">
-              <TbLoaderQuarter className="animate-spin" color="#454545" size={40} />
+              <TbLoaderQuarter
+                className="animate-spin"
+                color="#454545"
+                size={40}
+              />
             </div>
           ) : (
-            <div className="relative w-full h-fit flex flex-col items-start justify-start">
-              {resultados?.map((elemento, indice: number) => {
-                return <div key={indice}></div>;
-              })} 
+            <div className="relative w-full h-fit flex flex-col items-start justify-start gap-4">
+              {(!cambio ? perfiles : publicaciones)?.map(
+                (elemento, indice: number) => {
+                  return !cambio ? (
+                    <PerfilBuscado
+                      key={indice}
+                      router={router}
+                      perfil={elemento as Profile}
+                    />
+                  ) : (
+                    <PublicacionBuscada
+                      key={indice}
+                      router={router}
+                      publicacion={elemento as PrimaryPublication}
+                    />
+                  );
+                }
+              )}
             </div>
           )}
         </div>

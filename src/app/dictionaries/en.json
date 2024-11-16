@@ -21,7 +21,7 @@
     "clave": "Copy Your Private Key",
     "reiniciar": "New Random Wallet",
     "social": "Social Accounts",
-    "Siguiendo": "Following",
+    "Tuyas": "Your Publications",
     "TeGusta": "Liked",
     "publicar": "Share Something?",
     "Todo": "All",
@@ -29,7 +29,11 @@
     "Menciones": "Mentions",
     "Citas": "Quotes",
     "Republicaciones": "Mirrors",
-    "Solicitudes": "Requests"
+    "Solicitudes": "Requests",
+    "perfiles": "Profiles",
+    "publicaciones": "Publications",
+    "marcadoresvacios": "No Bookmarks yet.",
+    "actividadvacia": "No Activity yet."
   },
   "404": {
     "nada": "Error 404: This page has been hijacked by rogue NPCs. We are negotiating it's liberation."

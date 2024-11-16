@@ -21,7 +21,7 @@
     "clave": "Copie Su Clave Privada",
     "reiniciar": "Nueva Billetera Aleatoria",
     "social": "Cuentas Sociales",
-    "Siguiendo": "Siguiendo",
+    "Tuyas": "Tus Publicaciones",
     "TeGusta": "Te Gusta",
     "publicar": "¿Publicar Algo?",
     "Todo": "Todo",
@@ -29,7 +29,11 @@
     "Menciones": "Menciones",
     "Citas": "Citas",
     "Republicaciones": "Republicaciones",
-    "Solicitudes": "Solicitudes"
+    "Solicitudes": "Solicitudes",
+    "perfiles": "Perfiles",
+    "publicaciones": "Publicaciones",
+    "marcadoresvacios": "Aún no hay marcadores.",
+    "actividadvacia": "Aún no hay actividad."
   },
   "404": {
     "nada": "Error 404: La página ha sido secuestrada por NPCs rebeldes. Estamos negociando su liberación."

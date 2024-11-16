@@ -20,7 +20,7 @@ const usePerfil = (
   });
   const { execute } = useLogin();
   const handles = useOwnedHandles({ for: cuenta?.direccion as string });
-  const { signIn, connect, signOut, url, isConnected, data, error } = useSignIn(
+  const { signIn, connect, signOut, url, isConnected, } = useSignIn(
     {
       onSuccess: (datos) => {
         setCuenta({

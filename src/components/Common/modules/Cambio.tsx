@@ -91,7 +91,13 @@ const Cambio: FunctionComponent<CambioProps> = ({
       );
 
     case Pantalla.Actividad:
-      return <Actividad dict={dict} setFijado={setFijado} />;
+      return (
+        <Actividad
+          cuenta={cuenta}
+          dict={dict}
+          setFijado={setFijado}
+        />
+      );
 
     case Pantalla.Buscar:
       return <Buscar dict={dict} setFijado={setFijado} />;
@@ -117,6 +123,7 @@ const Cambio: FunctionComponent<CambioProps> = ({
           dict={dict}
           titulo={dict.Home.Marcadores}
           setFijado={setFijado}
+          cuenta={cuenta}
         />
       );
 

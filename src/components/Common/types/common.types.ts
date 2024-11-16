@@ -24,7 +24,7 @@ export enum OpcionActividad {
 
 export enum Opcion {
   ParaTi = "ParaTi",
-  Siguiendo = "Siguiendo",
+  Tuyas = "Tuyas",
   TeGusta = "TeGusta",
 }
 
@@ -49,6 +49,7 @@ export type FeedProps = {
   setPublicar: (e: SetStateAction<boolean>) => void;
   conectado: boolean;
   setMostrarConexion: (e: SetStateAction<boolean>) => void;
+  cuenta: Cuenta | undefined;
 };
 
 export type Cuenta = {
@@ -81,6 +82,7 @@ export type ActividadProps = {
   dict: Dictionary;
   setFijado: (e: SetStateAction<Pantalla[]>) => void;
   depin?: boolean;
+  cuenta: Cuenta | undefined;
 };
 
 export type CambioProps = {
@@ -118,10 +120,14 @@ export type Dictionary = {
   Home: {
     pin: string;
     aleatorio: string;
+    marcadoresvacios: string;
+    actividadvacia: string;
     publicar: string;
     reiniciar: string;
     clave: string;
-    Siguiendo: string;
+    publicaciones: string;
+    perfiles: string;
+    Tuyas: string;
     TeGusta: string;
     social: string;
     billetera: string;

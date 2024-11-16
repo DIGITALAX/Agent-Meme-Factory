@@ -5,6 +5,8 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import useFeed from "../hooks/useFeed";
 import { TbLoaderQuarter } from "react-icons/tb";
 import { LuPlus } from "react-icons/lu";
+import Publicacion from "@/components/Lens/modules/Publicacion";
+import { useRouter } from "next/navigation";
 
 const Feed: FunctionComponent<FeedProps> = ({
   titulo,
@@ -14,54 +16,58 @@ const Feed: FunctionComponent<FeedProps> = ({
   setPublicar,
   conectado,
   setMostrarConexion,
+  cuenta,
 }): JSX.Element => {
   const {
     opcion,
     setOpcion,
     opcionAbierta,
     setOpcionAbierta,
-    feed,
     feedCargando,
-    manejarFeed,
-  } = useFeed();
+    feed,
+    explorar,
+    explorarCargando,
+    marcadores,
+    marcadoresCargando,
+  } = useFeed(cuenta?.lens?.id);
+  const router = useRouter();
   return (
     <div className="relative w-100 flex flex-col gap-3 items-center justify-start h-full">
       <div className="relative text-sm flex flex-row gap-3 text-white w-fit h-10 text-center">
-        <div
-          className="relative w-fit h-fit flex cursor-pointer"
-          onClick={() => manejarFeed()}
-        >
+        <div className="relative w-fit h-fit flex">
           {titulo !== dict.Home.Marcadores ? dict.Home[opcion] : titulo}
         </div>
-        <div className="flex relative w-fit h-fit">
-          <IoIosArrowDropdownCircle
-            size={20}
-            className={`hover:fill-white fill-nubes cursor-pointer`}
-            onClick={() => setOpcionAbierta(!opcionAbierta)}
-          />
-          {opcionAbierta && (
-            <div className="absolute rounded-md -left-28 top-7 p-2.5 z-20 gap-5 bg-nubes w-40 h-fit flex flex-col items-start justify-start">
-              {Object.keys(Opcion)
-                .filter((key) => isNaN(Number(key)))
-                .map((elemento, indice) => {
-                  return (
-                    <div
-                      key={indice}
-                      className={`text-black text-sm relative w-full text-left flex h-fit cursor-pointer hover:opacity-50 ${
-                        elemento == opcion && "opacity-70"
-                      }`}
-                      onClick={() => {
-                        setOpcion(Opcion[elemento as keyof typeof Opcion]);
-                        setOpcionAbierta(false);
-                      }}
-                    >
-                      {dict.Home[elemento as keyof typeof Opcion]}
-                    </div>
-                  );
-                })}
-            </div>
-          )}
-        </div>
+        {titulo !== dict.Home.Marcadores && (
+          <div className="flex relative w-fit h-fit">
+            <IoIosArrowDropdownCircle
+              size={20}
+              className={`hover:fill-white fill-nubes cursor-pointer`}
+              onClick={() => setOpcionAbierta(!opcionAbierta)}
+            />
+            {opcionAbierta && (
+              <div className="absolute rounded-md -left-28 top-7 p-2.5 z-20 gap-5 bg-nubes w-40 h-fit flex flex-col items-start justify-start">
+                {Object.keys(Opcion)
+                  .filter((key) => isNaN(Number(key)))
+                  .map((elemento, indice) => {
+                    return (
+                      <div
+                        key={indice}
+                        className={`text-black text-sm relative w-full text-left flex h-fit cursor-pointer hover:opacity-50 ${
+                          elemento == opcion && "opacity-70"
+                        }`}
+                        onClick={() => {
+                          setOpcion(Opcion[elemento as keyof typeof Opcion]);
+                          setOpcionAbierta(false);
+                        }}
+                      >
+                        {dict.Home[elemento as keyof typeof Opcion]}
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {depin && (
         <div
@@ -91,7 +97,7 @@ const Feed: FunctionComponent<FeedProps> = ({
           </div>
         </div>
         <div className="relative w-full h-full overflow-y-scroll items-start justify-start flex">
-          {feedCargando ? (
+          {feedCargando || explorarCargando || marcadoresCargando ? (
             <div className="relative w-full h-full flex flex-col items-center justify-center">
               <TbLoaderQuarter
                 className="animate-spin"
@@ -100,10 +106,34 @@ const Feed: FunctionComponent<FeedProps> = ({
               />
             </div>
           ) : (
-            <div className="relative w-full h-fit flex flex-col items-start justify-start">
-              {feed?.map((elemento, indice: number) => {
-                return <div key={indice}></div>;
-              })}
+            <div className="relative w-full h-fit flex flex-col items-center justify-start gap-4">
+              {titulo == dict.Home.Marcadores &&
+              Number(marcadores?.length || 0) < 1 ? (
+                <div className="relative w-fit h-fit flex items-center justify-center text-white text-xxs py-4 px-2">
+                  {dict.Home.marcadoresvacios}
+                </div>
+              ) : (
+                (opcion == Opcion.ParaTi &&
+                Number(feed?.length) > 0 &&
+                cuenta?.lens
+                  ? feed
+                  : titulo == dict.Home.Marcadores
+                  ? marcadores
+                  : explorar
+                )?.map((publicacion, indice: number) => {
+                  return (
+                    <Publicacion
+                      key={indice}
+                      publicacion={
+                        publicacion?.__typename === "FeedItem"
+                          ? publicacion?.root
+                          : publicacion
+                      }
+                      router={router}
+                    />
+                  );
+                })
+              )}
             </div>
           )}
         </div>

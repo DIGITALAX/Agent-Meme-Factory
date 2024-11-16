@@ -22,7 +22,7 @@ const Fijado: FunctionComponent<FijadoProps> = ({
   setMostrarConexion,
   conectado,
   setPublicar,
-  setURL
+  setURL,
 }): JSX.Element => {
   switch (elemento) {
     case Pantalla.Fabrica:
@@ -125,6 +125,7 @@ const Fijado: FunctionComponent<FijadoProps> = ({
           setFijado={setFijado}
           titulo={dict.Home.Marcadores}
           depin
+          cuenta={cuenta}
         />
       );
 
@@ -136,6 +137,7 @@ const Fijado: FunctionComponent<FijadoProps> = ({
           conectado={conectado}
           setMostrarConexion={setMostrarConexion}
           dict={dict}
+          cuenta={cuenta}
           setFijado={setFijado}
           titulo={dict.Home.ParaTi}
         />

@@ -7,10 +7,11 @@ import { ethers } from "ethers";
 import { config } from "@/app/providers";
 import { FaAngleDown } from "react-icons/fa6";
 import { RiUnpinFill } from "react-icons/ri";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { INFURA_GATEWAY } from "@/lib/constants";
 import { AiOutlineLoading, AiOutlineLogout } from "react-icons/ai";
 import { disconnect } from "@wagmi/core";
+import createProfilePicture from "@/lib/helpers/createProfilePicture";
 
 const Perfil: FunctionComponent<PerfilProps> = ({
   dict,
@@ -19,7 +20,7 @@ const Perfil: FunctionComponent<PerfilProps> = ({
   setFijado,
   depin,
   setMostrarConexion,
-  setURL
+  setURL,
 }): JSX.Element => {
   const {
     copiado,
@@ -105,8 +106,8 @@ const Perfil: FunctionComponent<PerfilProps> = ({
         <div className="relative w-full h-fit flex flex-col gap-2 justify-center items-center">
           {cuenta?.lens ? (
             <div
-              className={`relative w-full flex items-start justify-start p-2 rounded-md bg-negro ${
-                abierto?.lens ? "h-96" : "h-60"
+              className={`relative w-full flex items-start justify-start p-2 rounded-md bg-negro gap-6 flex-col ${
+                abierto?.lens ? "h-fit" : "h-60"
               }`}
             >
               <div
@@ -122,6 +123,47 @@ const Perfil: FunctionComponent<PerfilProps> = ({
                   size={20}
                   className={`hover:fill-white fill-nubes`}
                 />
+              </div>
+              <div className="relative w-fit gap-3 h-fit flex items-center justify-between">
+                <div className="relative w-24 h-24 rounded-full bg-ligero border-2 border-ligero">
+                  <Image
+                    draggable={false}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-full"
+                    src={
+                      createProfilePicture(
+                        cuenta?.lens?.metadata?.picture as any
+                      ) || ""
+                    }
+                    alt="pfp"
+                  />
+                </div>
+                <div className="relative w-fit h-fit flex items-start justify-start flex-col gap-1">
+                  <div className="relative text-white text-2xl flex">
+                    {cuenta?.lens?.metadata?.displayName}
+                  </div>
+                  <div className="relative text-white text-base flex">
+                    @{cuenta?.lens?.handle?.localName}
+                  </div>
+                </div>
+              </div>
+              <div className="relative w-full h-fit flex items-end justify-end">
+                <div
+                  className={`"relative px-3 py-1 flex items-center justify-center bg-gris text-white w-28 h-8 hover:text-ligero rounded-md ${
+                    !lensCargando && "cursor-pointer active:scale-95"
+                  }`}
+                  onClick={() => !lensCargando && manejarLens()}
+                >
+                  {lensCargando ? (
+                    <AiOutlineLoading
+                      size={15}
+                      className={`fill-nubes animate-spin`}
+                    />
+                  ) : (
+                    dict.Home.salir
+                  )}
+                </div>
               </div>
             </div>
           ) : (
@@ -150,8 +192,6 @@ const Perfil: FunctionComponent<PerfilProps> = ({
                     size={15}
                     className={`fill-nubes animate-spin`}
                   />
-                ) : cuenta?.lens ? (
-                  dict.Home.salir
                 ) : (
                   dict.Home.conexion
                 )}

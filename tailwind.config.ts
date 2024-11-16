@@ -11,6 +11,9 @@ const config: Config = {
       width: {
         100: "37rem",
       },
+      fontSize: {
+        xxs: "0.6rem",
+      },
       colors: {
         negro: "#0A0A0A",
         gris: "#181818",
